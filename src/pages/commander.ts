@@ -110,13 +110,14 @@ export function renderCommander() {
           <div class="mb-6">
             <label class="block text-sm font-semibold mb-2">Mode de paiement</label>
             <div class="flex flex-col gap-3">
-              <label class="inline-flex items-center gap-2">
-                <input type="radio" name="payment_method" value="cash" checked ${!hasItems ? 'disabled' : ''} /> Paiement à la livraison
-              </label>
-              <label class="inline-flex items-center gap-2">
-                <input type="radio" name="payment_method" value="card" ${!hasItems ? 'disabled' : ''} /> Carte bancaire à la livraison
-              </label>
+              <div class="inline-flex items-center gap-2 text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pepper-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Paiement à la livraison uniquement
+              </div>
             </div>
+            <input type="hidden" name="payment_method" value="cash" />
           </div>
           
           <button type="submit" class="w-full bg-pepper-orange text-white font-semibold rounded-full px-8 py-3 text-lg shadow hover:bg-black hover:text-pepper-orange transition" ${!hasItems ? 'disabled' : ''}>

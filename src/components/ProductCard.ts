@@ -1,24 +1,40 @@
 import { formatPrice } from '../utils/formatPrice';
 import type { MenuItem } from '../data/menuItems';
 import { addToCart, getCart } from '../utils/cart';
+import { isFavorite, toggleFavorite, updateFavoritesCount } from '../utils/favorites';
 
 export function ProductCard(item: MenuItem): HTMLElement {
   const card = document.createElement('div');
   card.className = 'bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col items-center gap-2 hover:shadow-md transition';
+  
+  // Ajouter les attributs d'animation
+  card.setAttribute('data-aos', 'fade-up');
+  card.setAttribute('data-aos-delay', (Math.random() * 300).toString());
   
   // Vérifier si le produit est dans le panier
   const cart = getCart();
   const cartItem = cart.find(cartItem => cartItem.id === item.id && cartItem.size === 'normal');
   const quantity = cartItem ? cartItem.quantity : 0;
   
+  // Vérifier si le produit est dans les favoris
+  const isFav = isFavorite(item.id);
+  
   card.innerHTML = `
     <div class="relative w-full">
-      <img src="${item.image}" alt="${item.name}" class="w-28 h-28 object-cover rounded-full mx-auto mb-2 bg-pepper-gray" loading="lazy" />
-      ${item.category === 'Burgers' && item.id === 'pepper-smash' ? 
-        `<span class="absolute top-0 right-0 bg-pepper-orange text-white text-xs font-bold px-2 py-1 rounded-full">SPÉCIAL</span>` : ''}
+      <a href="#product/${item.id}" class="block">
+        <img src="${item.image}" alt="${item.name}" class="w-28 h-28 object-cover rounded-full mx-auto mb-3 hover:scale-105 transition-transform duration-300" loading="lazy" />
+        ${quantity > 0 ? `<span class="absolute -top-2 -right-2 bg-pepper-orange text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">${quantity}</span>` : ''}
+      </a>
+      <button class="favorite-btn absolute top-0 right-0 ${isFav ? 'text-red-500' : 'text-gray-300'} hover:text-red-500 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="${isFav ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      </button>
     </div>
-    <h3 class="text-lg font-semibold text-black text-center">${item.name}</h3>
-    <p class="text-sm text-gray-500 mb-2 text-center h-12 overflow-hidden">${item.description || '&nbsp;'}</p>
+    <a href="#product/${item.id}" class="block hover:text-pepper-orange transition-colors">
+      <h3 class="font-semibold text-center">${item.name}</h3>
+    </a>
+    <p class="text-xs text-gray-500 text-center line-clamp-2 h-8">${item.description || '&nbsp;'}</p>
     
     <div class="flex flex-wrap justify-center gap-2 text-pepper-orange font-bold text-base mb-3">
       ${item.prices.normal ? 
@@ -51,6 +67,7 @@ export function ProductCard(item: MenuItem): HTMLElement {
   const decrementBtn = card.querySelector('.decrement-btn');
   const quantityDisplay = card.querySelector('.quantity-display');
   const priceOptions = card.querySelectorAll('.price-option');
+  const favoriteBtn = card.querySelector('.favorite-btn');
   
   // Sélectionner la taille par défaut
   if (priceOptions.length > 0) {
@@ -82,6 +99,28 @@ export function ProductCard(item: MenuItem): HTMLElement {
     }
     // Mise à jour du compteur dans l'en-tête
     updateCartCounter();
+  });
+  
+  // Gérer les favoris
+  favoriteBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const isFavorited = toggleFavorite(item.id);
+    const heartIcon = favoriteBtn.querySelector('svg');
+    
+    if (isFavorited) {
+      favoriteBtn.classList.add('text-red-500');
+      favoriteBtn.classList.remove('text-gray-300');
+      if (heartIcon) heartIcon.setAttribute('fill', 'currentColor');
+    } else {
+      favoriteBtn.classList.add('text-gray-300');
+      favoriteBtn.classList.remove('text-red-500');
+      if (heartIcon) heartIcon.setAttribute('fill', 'none');
+    }
+    
+    // Mettre à jour le compteur de favoris dans le header
+    updateFavoritesCount();
   });
   
   // Gérer la décrémentation

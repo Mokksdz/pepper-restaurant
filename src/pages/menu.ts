@@ -24,6 +24,8 @@ export function renderMenu() {
   if (smash) {
     const smashSection = document.createElement('section');
     smashSection.className = 'bg-pepper-gray rounded-xl flex flex-col md:flex-row items-center gap-8 p-6 md:p-10 mb-12 shadow-sm border border-gray-100';
+    smashSection.setAttribute('data-aos', 'fade-up');
+    smashSection.setAttribute('data-aos-duration', '800');
     smashSection.innerHTML = `
       <div class="flex-1 flex flex-col items-center md:items-start">
         <div class="inline-block bg-pepper-orange text-white text-xs font-bold rounded-full px-3 py-1 mb-2 uppercase tracking-wide">New</div>
@@ -42,12 +44,17 @@ export function renderMenu() {
   }
 
   // Affichage des catégories et produits
-  categories.forEach(({ key, label }) => {
+  categories.forEach(({ key, label }, index) => {
     const section = document.createElement('section');
     section.className = 'mb-14';
+    section.setAttribute('data-aos', 'fade-up');
+    section.setAttribute('data-aos-delay', (index * 100).toString());
+    
     const title = document.createElement('h2');
     title.className = 'text-2xl font-bold mb-6 text-black tracking-tight';
     title.textContent = label;
+    title.setAttribute('data-aos', 'fade-right');
+    title.setAttribute('data-aos-duration', '600');
     section.appendChild(title);
 
     const grid = document.createElement('div');
@@ -63,6 +70,8 @@ export function renderMenu() {
   const formule = document.createElement('div');
   formule.className = 'bg-pepper-orange text-white rounded-xl px-6 py-5 text-lg font-semibold text-center max-w-xl mx-auto shadow mt-10 mb-4';
   formule.innerHTML = 'Rajoutes <span class="font-bold">01 Frite</span> + <span class="font-bold">01 Boisson</span> pour <span class="font-bold">350 DA</span>';
+  formule.setAttribute('data-aos', 'zoom-in');
+  formule.setAttribute('data-aos-duration', '500');
   main.appendChild(formule);
 
   app.appendChild(main);
