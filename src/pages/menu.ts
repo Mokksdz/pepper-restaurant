@@ -39,6 +39,7 @@ export function renderMenu() {
   });
   app.appendChild(navBar);
 
+
   const main = document.createElement('main');
   main.className = 'py-10 px-2 md:px-4 max-w-6xl mx-auto';
 

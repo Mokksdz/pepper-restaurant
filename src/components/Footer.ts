@@ -16,8 +16,20 @@ export function Footer(): HTMLElement {
             <svg class="w-7 h-7 transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
           </a>
         </div>
-        <div class="text-sm text-gray-500">📍 6 rue des Frères Bouadou, El Madania, Alger</div>
-        <a href="https://goo.gl/maps/8QvF7JvK4XyKf8Uq5" target="_blank" rel="noopener" class="inline-block mt-1 px-4 py-1.5 rounded-full bg-pepper-orange text-white font-bold shadow hover:bg-black hover:text-pepper-orange transition">Itinéraire Google Maps</a>
+        <div class="text-sm text-gray-700 mb-1 text-left w-full">
+          <div class="font-bold">315 Coopérative El Moustakbel<br>Ain Allah, Dely Ibrahim</div>
+          <span class="text-pepper-orange font-extrabold text-base">
+            <a href="tel:0561780036" class="hover:underline">0561 78 00 36</a>
+          </span>
+          <a href="https://maps.app.goo.gl/asyvuvtwMqjYhKZy5?g_st=com.google.maps.preview.copy" target="_blank" rel="noopener" class="ml-2 text-pepper-orange underline hover:text-black">Maps</a>
+        </div>
+        <div class="text-sm text-gray-700 mb-1 text-left w-full">
+          <div class="font-bold">Garden City 3ème étage, Food Court</div>
+          <span class="text-pepper-orange font-extrabold text-base">
+            <a href="tel:0542063443" class="hover:underline">0542 06 34 43</a>
+          </span>
+          <a href="https://maps.app.goo.gl/LjBKW4ot89rjMfK66?g_st=com.google.maps.preview.copy" target="_blank" rel="noopener" class="ml-2 text-pepper-orange underline hover:text-black">Maps</a>
+        </div>
       </div>
       <div class="flex flex-col items-center gap-2">
         <div class="font-semibold text-black">Horaires</div>
