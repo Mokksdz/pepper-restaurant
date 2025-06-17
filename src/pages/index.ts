@@ -26,11 +26,51 @@ export function renderIndex() {
         animation: bounce-in 1.1s cubic-bezier(.7,-0.3,.5,1.5) both;
       }
     </style>
-    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-xl" data-aos="fade-up" data-aos-delay="400">Des burgers premium, des produits frais, une expérience street food unique à Alger.</p>
-    <div data-aos="fade-up" data-aos-delay="600">
-      <a href="#menu" class="inline-block px-8 py-3 bg-pepper-orange text-white font-semibold rounded-full text-lg shadow hover:bg-black hover:text-pepper-orange transition">Voir le menu</a>
+    <div class="flex flex-col items-center justify-center gap-4 mb-8" data-aos="fade-up" data-aos-delay="300">
+      <span class="font-semibold text-gray-700">Choisissez votre magasin :</span>
+      <div class="flex gap-4">
+        <button id="select-shop-ainallah" class="shop-btn bg-pepper-orange/80 hover:bg-pepper-orange text-white font-bold px-6 py-3 rounded-full shadow transition-all border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-pepper-orange">Ain Allah</button>
+        <button id="select-shop-gardencity" class="shop-btn bg-gray-200 hover:bg-pepper-orange/70 text-black font-bold px-6 py-3 rounded-full shadow transition-all border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-pepper-orange">Garden City</button>
+      </div>
     </div>
+    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-xl" data-aos="fade-up" data-aos-delay="400">Des burgers premium, des produits frais, une expérience street food unique à Alger.</p>
+
   `;
   app.appendChild(hero);
+
+  // --- Logique sélection magasin ---
+  const defaultShop = localStorage.getItem('selectedShop') || 'ainallah';
+  const btnAin = document.getElementById('select-shop-ainallah');
+  const btnGarden = document.getElementById('select-shop-gardencity');
+  function updateShopButtons(selected: string) {
+    if (btnAin && btnGarden) {
+      if (selected === 'ainallah') {
+        btnAin.classList.add('bg-pepper-orange','text-white');
+        btnAin.classList.remove('bg-gray-200','text-black');
+        btnGarden.classList.remove('bg-pepper-orange','text-white');
+        btnGarden.classList.add('bg-gray-200','text-black');
+      } else {
+        btnGarden.classList.add('bg-pepper-orange','text-white');
+        btnGarden.classList.remove('bg-gray-200','text-black');
+        btnAin.classList.remove('bg-pepper-orange','text-white');
+        btnAin.classList.add('bg-gray-200','text-black');
+      }
+    }
+  }
+  updateShopButtons(defaultShop);
+  if (btnAin) btnAin.onclick = () => {
+    localStorage.setItem('selectedShop','ainallah');
+    updateShopButtons('ainallah');
+    window.dispatchEvent(new CustomEvent('shopChanged', { detail: 'ainallah' }));
+    window.location.hash = '#menu';
+  };
+  if (btnGarden) btnGarden.onclick = () => {
+    localStorage.setItem('selectedShop','gardencity');
+    updateShopButtons('gardencity');
+    window.dispatchEvent(new CustomEvent('shopChanged', { detail: 'gardencity' }));
+    window.location.hash = '#menu';
+  };
+
+
   app.appendChild(Footer());
 }
