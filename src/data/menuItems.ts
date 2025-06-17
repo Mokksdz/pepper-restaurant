@@ -7,9 +7,16 @@ export interface MenuItem {
   category: MenuCategory;
   image: string;
   prices: {
-    normal?: number;
-    xl?: number;
-    xxl?: number;
+    ainallah: {
+      normal?: number;
+      xl?: number;
+      xxl?: number;
+    };
+    gardencity: {
+      normal?: number;
+      xl?: number;
+      xxl?: number;
+    };
   };
   isNew?: boolean; // Badge "Nouveau"
   isBestSeller?: boolean; // Badge "Best Seller"
@@ -23,7 +30,7 @@ export const menuItems: MenuItem[] = [
     description: 'Double Smash Double Cheese House Sauce',
     category: 'Burgers',
     image: '/assets/images/burgers/Pepper-Smash-Burger.jpg',
-    prices: { normal: 700, xl: 900, xxl: 1000 },
+    prices: { ainallah: { normal: 700, xl: 900, xxl: 1000 }, gardencity: { normal: 700, xl: 900, xxl: 1000 } },
   },
   {
     id: 'pepper',
@@ -31,7 +38,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, sauce au poivre',
     category: 'Burgers',
     image: '/assets/images/burgers/Pepper-Smash-Burger.jpg',
-    prices: { normal: 450, xl: 650, xxl: 950 },
+    prices: { ainallah: { normal: 450, xl: 650, xxl: 950 }, gardencity: { normal: 550, xl: 750, xxl: 950 } },
   },
   {
     id: 'rossini',
@@ -39,7 +46,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, tranche de foie grillé, sauce poivre ou sel',
     category: 'Burgers',
     image: '/assets/images/burgers/Rossini.jpg',
-    prices: { normal: 800, xl: 950, xxl: 1200 },
+    prices: { ainallah: { normal: 800, xl: 950, xxl: 1200 }, gardencity: { normal: 900, xl: 1100, xxl: 1300 } },
   },
   {
     id: 'cheeseburger',
@@ -47,7 +54,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, salade, tomate, gouda, sauce',
     category: 'Burgers',
     image: '/assets/images/burgers/Cheese-Burger.jpg',
-    prices: { normal: 550, xl: 750, xxl: 850 },
+    prices: { ainallah: { normal: 550, xl: 750, xxl: 850 }, gardencity: { normal: 650, xl: 850, xxl: 1050 } },
   },
   {
     id: 'blue',
@@ -55,7 +62,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, sauce roquefort',
     category: 'Burgers',
     image: '/assets/images/burgers/Blue.jpg',
-    prices: { normal: 650, xl: 950 },
+    prices: { ainallah: { normal: 650, xl: 950 }, gardencity: { normal: 650, xl: 950 } },
   },
   {
     id: 'egg',
@@ -63,7 +70,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, œuf, salade, tomate, poivron, gouda, sauce',
     category: 'Burgers',
     image: '/assets/images/burgers/Egg.jpg',
-    prices: { normal: 650, xl: 950 },
+    prices: { ainallah: { normal: 650, xl: 950 }, gardencity: { normal: 650, xl: 950 } },
   },
   {
     id: 'forest',
@@ -71,7 +78,7 @@ export const menuItems: MenuItem[] = [
     description: 'Steak haché, champignons, oignons caramélisés',
     category: 'Burgers',
     image: '/assets/images/burgers/Forest.jpg',
-    prices: { normal: 650, xl: 950 },
+    prices: { ainallah: { normal: 650, xl: 950 }, gardencity: { normal: 650, xl: 950 } },
   },
   {
     id: 'chicken-crispy',
@@ -79,7 +86,7 @@ export const menuItems: MenuItem[] = [
     description: 'Poulet pané, salade, tomate, gouda, sauce BBQ',
     category: 'Burgers',
     image: '/assets/images/burgers/Chicken-Crispy.jpg',
-    prices: { normal: 550 },
+    prices: { ainallah: { normal: 550 }, gardencity: { normal: 600 } },
   },
   // --- SANDWICHS ---
   {
@@ -88,7 +95,7 @@ export const menuItems: MenuItem[] = [
     description: 'Poulet aux fines herbes grillé, salade, tomate, gouda, sauce maison',
     category: 'Sandwichs orientaux',
     image: '/assets/images/sandwichs/Nicois.jpg',
-    prices: { normal: 500 },
+    prices: { ainallah: { normal: 500 }, gardencity: { normal: 500 } },
   },
   {
     id: 'keftaji',
@@ -96,7 +103,7 @@ export const menuItems: MenuItem[] = [
     description: 'Kefta, salade, tomate, gouda, sauce maison',
     category: 'Sandwichs orientaux',
     image: '/assets/images/sandwichs/Keftaji.jpg',
-    prices: { normal: 550 },
+    prices: { ainallah: { normal: 550, xl: 750, xxl: 950 }, gardencity: { normal: 650, xl: 850, xxl: 1050 } },
   },
   {
     id: 'pondichery',
@@ -104,7 +111,7 @@ export const menuItems: MenuItem[] = [
     description: 'Poulet au curry grillé, salade, tomate, gouda, sauce',
     category: 'Sandwichs orientaux',
     image: '/assets/images/sandwichs/Pondichery.jpg',
-    prices: { normal: 500 },
+    prices: { ainallah: { normal: 500 }, gardencity: { normal: 500 } },
   },
   {
     id: 'oriental-cheezy',
@@ -112,7 +119,7 @@ export const menuItems: MenuItem[] = [
     description: 'Pain façon sandwich oriental, poulet haché, cheddar, fromage, crudités',
     category: 'Sandwichs orientaux',
     image: '/assets/images/sandwichs/Oriental-Cheezy.jpg',
-    prices: { normal: 500 },
+    prices: { ainallah: { normal: 500 }, gardencity: { normal: 500 } },
   },
   {
     id: 'oriental-chicken',
@@ -120,7 +127,7 @@ export const menuItems: MenuItem[] = [
     description: 'Pain façon sandwich oriental, poulet haché, fromage, crudités',
     category: 'Sandwichs orientaux',
     image: '/assets/images/sandwichs/Oriental-Chicken.jpg',
-    prices: { normal: 500 },
+    prices: { ainallah: { normal: 500 }, gardencity: { normal: 500 } },
   },
   // --- ACCOMPAGNEMENTS ---
   {
@@ -129,7 +136,7 @@ export const menuItems: MenuItem[] = [
     description: '',
     category: 'Accompagnements',
     image: '/assets/images/sides/Frite.jpg',
-    prices: { normal: 200 },
+    prices: { ainallah: { normal: 200 }, gardencity: { normal: 200 } },
   },
   {
     id: 'frite-xl',
@@ -137,7 +144,7 @@ export const menuItems: MenuItem[] = [
     description: '',
     category: 'Accompagnements',
     image: '/assets/images/sides/Frite-XL.jpg',
-    prices: { normal: 300 },
+    prices: { ainallah: { normal: 300 }, gardencity: { normal: 300 } },
   },
   {
     id: 'quiches',
@@ -145,7 +152,7 @@ export const menuItems: MenuItem[] = [
     description: 'Poulet, champignons ou viande hachée',
     category: 'Accompagnements',
     image: '/assets/images/sides/Quiche.jpg',
-    prices: { normal: 250 },
+    prices: { ainallah: { normal: 250 }, gardencity: { normal: 350 } },
   },
   {
     id: 'nuggets',
@@ -153,7 +160,7 @@ export const menuItems: MenuItem[] = [
     description: '',
     category: 'Accompagnements',
     image: '/assets/images/sides/Nuggets.jpg',
-    prices: { normal: 350 },
+    prices: { ainallah: { normal: 350 }, gardencity: { normal: 500 } },
   },
   {
     id: 'salade-cesar',
@@ -161,7 +168,7 @@ export const menuItems: MenuItem[] = [
     description: '',
     category: 'Accompagnements',
     image: '/assets/images/sides/Salade-Cesar.jpg',
-    prices: { normal: 400 },
+    prices: { ainallah: { normal: 400 }, gardencity: { normal: 450 } },
   },
   // --- DESSERTS ---
   {
@@ -170,7 +177,7 @@ export const menuItems: MenuItem[] = [
     description: 'Nature / Cœur pistache / Caramel',
     category: 'Desserts',
     image: '/assets/images/desserts/Fondant-Chocolat.jpg',
-    prices: { normal: 400 },
+    prices: { ainallah: { normal: 400 }, gardencity: { normal: 350 } },
   },
   {
     id: 'fondant-chocolat-caramel',
@@ -178,7 +185,7 @@ export const menuItems: MenuItem[] = [
     description: 'Délicieux fondant au chocolat avec cœur coulant au caramel',
     category: 'Desserts',
     image: '/assets/images/desserts/Fondant-Caramel.jpg',
-    prices: { normal: 450 },
+    prices: { ainallah: { normal: 450 }, gardencity: { normal: 350 } },
   },
   {
     id: 'fondant-chocolat-pistache',
@@ -186,7 +193,7 @@ export const menuItems: MenuItem[] = [
     description: 'Fondant au chocolat avec cœur coulant à la pistache',
     category: 'Desserts',
     image: '/assets/images/desserts/Fondant-Pistache.jpg',
-    prices: { normal: 450 },
+    prices: { ainallah: { normal: 450 }, gardencity: { normal: 350 } },
   },
   {
     id: 'tiramisu',
@@ -194,7 +201,7 @@ export const menuItems: MenuItem[] = [
     description: 'Nature / Pistache / Fraise / Citron',
     category: 'Desserts',
     image: '/assets/images/desserts/Tiramisu.jpg',
-    prices: { normal: 400 },
+    prices: { ainallah: { normal: 400 }, gardencity: { normal: 350 } },
   },
   // --- BOISSONS ---
   {
@@ -203,7 +210,7 @@ export const menuItems: MenuItem[] = [
     description: 'Fraise / Orange / Citron',
     category: 'Boissons',
     image: '/assets/images/boissons/Jus-de-Fruit-Fraise.jpg',
-    prices: { normal: 250 },
+    prices: { ainallah: { normal: 250 }, gardencity: { normal: 250 } },
   },
   {
     id: 'jus-orange',
@@ -211,7 +218,7 @@ export const menuItems: MenuItem[] = [
     description: 'Jus d\'orange frais et naturel',
     category: 'Boissons',
     image: '/assets/images/boissons/Jus-de-Fruit-Orange.png',
-    prices: { normal: 250 },
+    prices: { ainallah: { normal: 250 }, gardencity: { normal: 250 } },
   },
   {
     id: 'jus-citron',
@@ -219,7 +226,7 @@ export const menuItems: MenuItem[] = [
     description: 'Jus de citron frais et rafraîchissant',
     category: 'Boissons',
     image: '/assets/images/boissons/Jus-de-Fruit-Citron.jpg',
-    prices: { normal: 250 },
+    prices: { ainallah: { normal: 250 }, gardencity: { normal: 250 } },
   },
   {
     id: 'soda',
@@ -227,7 +234,7 @@ export const menuItems: MenuItem[] = [
     description: 'Coca-Cola, Sprite, Fanta et autres sodas',
     category: 'Boissons',
     image: '/assets/images/boissons/Soda.jpg',
-    prices: { normal: 200 },
+    prices: { ainallah: { normal: 200 }, gardencity: { normal: 150 } },
   },
   {
     id: 'eau',
@@ -235,8 +242,9 @@ export const menuItems: MenuItem[] = [
     description: 'Eau plate naturelle',
     category: 'Boissons',
     image: '/assets/images/boissons/Eau-Eau-gazeuze.jpg',
-    prices: { normal: 100 },
+    prices: { ainallah: { normal: 100 }, gardencity: { normal: 50 } },
   },
+
   {
     id: 'eau-gazeuse',
     name: 'Eau gazeuse',

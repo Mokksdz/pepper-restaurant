@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "Zone 1 - Proche",
+    "communes": [
+      "Hydra",
+      "Ben Aknoun",
+      "Dely Ibrahim",
+      "Cheraga",
+      "Ain Allah"
+    ],
+    "delivery_fee": 200,
+    "estimated_time_min": 20,
+    "estimated_time_max": 35,
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Zone 2 - Moyenne",
+    "communes": [
+      "Alger Centre",
+      "Bab Ezzouar",
+      "Kouba",
+      "Birtouta",
+      "Zeralda"
+    ],
+    "delivery_fee": 300,
+    "estimated_time_min": 35,
+    "estimated_time_max": 50,
+    "is_active": true
+  },
+  {
+    "id": 3,
+    "name": "Zone 3 - Éloignée",
+    "communes": [
+      "Blida",
+      "Boumerdes",
+      "Tipaza",
+      "Boufarik"
+    ],
+    "delivery_fee": 400,
+    "estimated_time_min": 45,
+    "estimated_time_max": 70,
+    "is_active": true
+  }
+]

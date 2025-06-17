@@ -39,7 +39,7 @@ export function renderIndex() {
   app.appendChild(hero);
 
   // --- Logique sélection magasin ---
-  const defaultShop = localStorage.getItem('selectedShop') || 'ainallah';
+  const defaultShop = localStorage.getItem('shop') || 'ainallah';
   const btnAin = document.getElementById('select-shop-ainallah');
   const btnGarden = document.getElementById('select-shop-gardencity');
   function updateShopButtons(selected: string) {
@@ -59,17 +59,18 @@ export function renderIndex() {
   }
   updateShopButtons(defaultShop);
   if (btnAin) btnAin.onclick = () => {
-    localStorage.setItem('selectedShop','ainallah');
+    localStorage.setItem('shop','ainallah');
     updateShopButtons('ainallah');
     window.dispatchEvent(new CustomEvent('shopChanged', { detail: 'ainallah' }));
     window.location.hash = '#menu';
   };
   if (btnGarden) btnGarden.onclick = () => {
-    localStorage.setItem('selectedShop','gardencity');
+    localStorage.setItem('shop','gardencity');
     updateShopButtons('gardencity');
     window.dispatchEvent(new CustomEvent('shopChanged', { detail: 'gardencity' }));
     window.location.hash = '#menu';
   };
+
 
 
   app.appendChild(Footer());

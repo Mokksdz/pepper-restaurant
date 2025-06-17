@@ -42,18 +42,22 @@ export function ProductCard(item: MenuItem): HTMLElement {
     <p class="text-xs text-gray-500 text-center line-clamp-2 min-h-[32px] mb-1">${item.description || '&nbsp;'}</p>
     
     <div class="flex flex-wrap justify-center gap-2 mb-3">
-      ${item.prices.normal ? 
-        `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="normal" data-price="${item.prices.normal}">
-          <span>${formatPrice(item.prices.normal)}</span>
-        </div>` : ''}
-      ${item.prices.xl ? 
-        `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="xl" data-price="${item.prices.xl}">
-          <span>XL: ${formatPrice(item.prices.xl)}</span>
-        </div>` : ''}
-      ${item.prices.xxl ? 
-        `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="xxl" data-price="${item.prices.xxl}">
-          <span>XXL: ${formatPrice(item.prices.xxl)}</span>
-        </div>` : ''}
+      ${(() => {
+        const shop = localStorage.getItem('shop') || 'ainallah';
+        const prices = item.prices[shop] || {};
+        let html = '';
+        if (prices.normal) {
+          html += `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="normal" data-price="${prices.normal}"><span>${formatPrice(prices.normal)}</span></div>`;
+        }
+        if (prices.xl) {
+          html += `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="xl" data-price="${prices.xl}"><span>XL: ${formatPrice(prices.xl)}</span></div>`;
+        }
+        if (prices.xxl) {
+          html += `<div class="price-option cursor-pointer select-none bg-pepper-orange/10 text-pepper-orange font-extrabold text-lg px-3 py-1 rounded-lg shadow hover:bg-pepper-orange/20 transition-all" data-size="xxl" data-price="${prices.xxl}"><span>XXL: ${formatPrice(prices.xxl)}</span></div>`;
+        }
+        return html;
+      })()}
+
     </div>
     
     ${(item.category === 'Burgers' || item.category === 'Sandwichs orientaux') ? 

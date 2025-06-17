@@ -11,11 +11,16 @@ export function Header(): HTMLElement {
   const header = document.createElement('header');
   header.className = 'bg-white py-2 px-6 shadow-sm sticky top-0 z-30 border-b border-gray-100 transition-shadow duration-300';
   
+  const shop = localStorage.getItem('shop') || 'ainallah';
   header.innerHTML = `
     <div class="mx-auto flex items-center justify-between max-w-7xl">
       <a href="#" class="flex items-center">
         <img src="/Pepper Logo.svg" alt="Pepper Logo" class="h-24 w-auto object-contain" />
       </a>
+      <select id="shop-selector" class="ml-3 px-3 py-1 rounded-lg border-2 border-pepper-orange bg-white text-pepper-orange font-bold shadow hover:bg-pepper-orange hover:text-white transition-all focus:outline-none">
+        <option value="ainallah" ${shop === 'ainallah' ? 'selected' : ''}>Ain Allah</option>
+        <option value="gardencity" ${shop === 'gardencity' ? 'selected' : ''}>Garden City</option>
+      </select>
       <nav class="hidden md:block">
         <ul class="flex space-x-6 items-center">
           <li><a href="#" class="hover:text-pepper-orange transition">Accueil</a></li>
@@ -103,6 +108,18 @@ export function Header(): HTMLElement {
       }
     });
   }
+
+  // Ajoute la logique de changement de magasin à la liste déroulante
+  setTimeout(() => {
+    const shopSelect = header.querySelector('#shop-selector') as HTMLSelectElement;
+    if (shopSelect) {
+      shopSelect.addEventListener('change', (e) => {
+        const value = (e.target as HTMLSelectElement).value;
+        localStorage.setItem('shop', value);
+        window.location.reload();
+      });
+    }
+  }, 100);
 
   return header;
 }
