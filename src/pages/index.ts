@@ -13,7 +13,7 @@ export function renderIndex() {
       <img src="/assets/images/BG accueil copie.jpg" alt="Fond Pepper" class="w-full h-full object-cover opacity-20 blur-sm" style="max-width:none; max-height:none;" loading="lazy" />
     </div>
     <div data-aos="zoom-in" data-aos-duration="800">
-      <img src="/Pepper Logo.svg" alt="Burger PEPPER" class="max-w-[840px] w-[160vw] md:w-[840px] h-[160vw] md:h-[840px] object-contain mb-8 animate-bounce-in" loading="lazy" />
+      <img src="/Pepper Logo.svg" alt="Burger PEPPER" class="w-[60vw] h-[60vw] max-w-[320px] md:w-[840px] md:h-[840px] md:max-w-[840px] object-contain mb-8 animate-bounce-in" loading="lazy" />
     </div>
     <style>
       @keyframes bounce-in {
