@@ -7,6 +7,8 @@ export interface CartItem {
   price: number;
   quantity: number;
   image: string;
+  isMenu?: boolean;
+  menuPrice?: number;
 }
 
 export function getCart(): CartItem[] {
@@ -20,37 +22,50 @@ export function getCart(): CartItem[] {
   }
 }
 
-export function addToCart(item: MenuItem, size: string = 'normal'): void {
+export function addToCart(item: MenuItem, size: string = 'normal', isMenu: boolean = false): void {
   const cart = getCart();
-  const price = size === 'normal' 
+  const basePrice = size === 'normal' 
     ? item.prices.normal 
     : size === 'xl' 
       ? item.prices.xl 
       : item.prices.xxl;
   
-  if (!price) return;
+  if (!basePrice) return;
   
-  const existingItem = cart.find(cartItem => cartItem.id === item.id && cartItem.size === size);
+  const finalPrice = isMenu ? basePrice + 350 : basePrice;
+  const itemKey = `${item.id}-${size}-${isMenu ? 'menu' : 'solo'}`;
+  
+  const existingItem = cart.find(cartItem => 
+    cartItem.id === item.id && 
+    cartItem.size === size && 
+    cartItem.isMenu === isMenu
+  );
   
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
     cart.push({
       id: item.id,
-      name: item.name,
+      name: isMenu ? `${item.name} (Menu)` : item.name,
       size,
-      price,
+      price: finalPrice,
       quantity: 1,
-      image: item.image
+      image: item.image,
+      isMenu,
+      menuPrice: isMenu ? 350 : undefined
     });
   }
   
   localStorage.setItem('pepperCart', JSON.stringify(cart));
 }
 
-export function removeFromCart(itemId: string, size: string): void {
+export function removeFromCart(itemId: string, size: string, isMenu: boolean = false): void {
   const cart = getCart();
-  const itemIndex = cart.findIndex(item => item.id === itemId && item.size === size);
+  const itemIndex = cart.findIndex(item => 
+    item.id === itemId && 
+    item.size === size && 
+    item.isMenu === isMenu
+  );
   
   if (itemIndex !== -1) {
     if (cart[itemIndex].quantity > 1) {

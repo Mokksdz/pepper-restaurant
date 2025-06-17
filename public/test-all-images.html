@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Complet des Images</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .image-test { 
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { border-left: 4px solid #28a745; }
+        .error { border-left: 4px solid #dc3545; }
+        .warning { border-left: 4px solid #ffc107; }
+        
+        img { 
+            width: 100%;
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .path {
+            font-family: monospace;
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+        }
+        .status {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .loading {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Test Complet des Images Pepper</h1>
+        
+        <div class="stats" id="stats">
+            <h3>📊 Statistiques</h3>
+            <p>⏳ Test en cours...</p>
+        </div>
+        
+        <div class="image-grid" id="results"></div>
+    </div>
+
+    <script>
+        // Données des images du menu (copié depuis menuItems.ts)
+        const menuImages = [
+            '/assets/images/burgers/Pepper-Smash-Burger.jpg',
+            '/assets/images/burgers/Blue.jpg',
+            '/assets/images/burgers/Cheese-Burger.jpg',
+            '/assets/images/burgers/Chicken-Crispy.jpg',
+            '/assets/images/burgers/Egg.jpg',
+            '/assets/images/burgers/Forest.jpg',
+            '/assets/images/burgers/Rossini.jpg',
+            '/assets/images/sandwichs/Nicois.jpg', // Corrigé
+            '/assets/images/sandwichs/Keftaji.jpg',
+            '/assets/images/sandwichs/Pondichery.jpg',
+            '/assets/images/sandwichs/Oriental-Cheezy.jpg',
+            '/assets/images/sandwichs/Oriental-Chicken.jpg',
+            '/assets/images/sides/Frite.jpg',
+            '/assets/images/sides/Frite-XL.jpg',
+            '/assets/images/sides/Quiche.jpg',
+            '/assets/images/sides/Nuggets.jpg',
+            '/assets/images/sides/Salade-Cesar.jpg', // Corrigé
+            '/assets/images/desserts/Fondant-Chocolat.jpg',
+            '/assets/images/desserts/Tiramisu.jpg',
+            '/assets/images/boissons/Jus-de-Fruit-Fraise.jpg'
+        ];
+
+        const resultsDiv = document.getElementById('results');
+        const statsDiv = document.getElementById('stats');
+        
+        let totalImages = menuImages.length;
+        let loadedImages = 0;
+        let failedImages = 0;
+        let testedImages = 0;
+
+        function updateStats() {
+            statsDiv.innerHTML = `
+                <h3>📊 Statistiques</h3>
+                <p><strong>Total:</strong> ${totalImages} images</p>
+                <p><strong>✅ Chargées:</strong> ${loadedImages}</p>
+                <p><strong>❌ Échecs:</strong> ${failedImages}</p>
+                <p><strong>⏳ Testées:</strong> ${testedImages}/${totalImages}</p>
+                <p><strong>📈 Taux de réussite:</strong> ${testedImages > 0 ? Math.round((loadedImages / testedImages) * 100) : 0}%</p>
+            `;
+        }
+
+        function testImage(imagePath) {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'image-test loading';
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = '⏳ Test en cours...';
+            
+            const pathDiv = document.createElement('div');
+            pathDiv.className = 'path';
+            pathDiv.textContent = imagePath;
+            
+            testDiv.appendChild(statusDiv);
+            testDiv.appendChild(pathDiv);
+            
+            const img = document.createElement('img');
+            img.src = imagePath;
+            
+            img.onload = () => {
+                testDiv.className = 'image-test success';
+                statusDiv.className = 'status';
+                statusDiv.innerHTML = '✅ <strong>SUCCÈS</strong>';
+                testDiv.appendChild(img);
+                
+                loadedImages++;
+                testedImages++;
+                updateStats();
+            };
+            
+            img.onerror = () => {
+                testDiv.className = 'image-test error';
+                statusDiv.className = 'status';
+                statusDiv.innerHTML = '❌ <strong>ÉCHEC</strong>';
+                
+                // Ajouter des informations de débogage
+                const debugDiv = document.createElement('div');
+                debugDiv.innerHTML = `
+                    <small>
+                        <br>🔍 <strong>Diagnostic:</strong>
+                        <br>• Vérifiez que le fichier existe
+                        <br>• Vérifiez l'encodage du nom de fichier
+                        <br>• Vérifiez les permissions
+                    </small>
+                `;
+                testDiv.appendChild(debugDiv);
+                
+                failedImages++;
+                testedImages++;
+                updateStats();
+            };
+            
+            resultsDiv.appendChild(testDiv);
+        }
+
+        // Démarrer les tests
+        console.log('🚀 Démarrage du test de toutes les images...');
+        updateStats();
+        
+        menuImages.forEach((imagePath, index) => {
+            // Étaler les tests pour éviter de surcharger le serveur
+            setTimeout(() => {
+                testImage(imagePath);
+            }, index * 100);
+        });
+
+        // Exposer les résultats pour la console
+        window.getImageTestResults = () => {
+            return {
+                total: totalImages,
+                loaded: loadedImages,
+                failed: failedImages,
+                tested: testedImages,
+                successRate: testedImages > 0 ? Math.round((loadedImages / testedImages) * 100) : 0
+            };
+        };
+
+        console.log('💡 Utilisez window.getImageTestResults() pour obtenir les résultats');
+    </script>
+</body>
+</html>

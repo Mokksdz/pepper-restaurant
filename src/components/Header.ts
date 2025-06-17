@@ -9,11 +9,13 @@ export function Header(): HTMLElement {
   const totalFavorites = favorites.length;
   
   const header = document.createElement('header');
-  header.className = 'bg-white py-4 px-6 shadow-sm sticky top-0 z-30 border-b border-gray-100';
+  header.className = 'bg-white py-2 px-6 shadow-sm sticky top-0 z-30 border-b border-gray-100 transition-shadow duration-300';
   
   header.innerHTML = `
     <div class="mx-auto flex items-center justify-between max-w-7xl">
-      <a href="#" class="text-2xl font-bold text-black">PEPPER</a>
+      <a href="#" class="flex items-center">
+        <img src="/Pepper Logo.svg" alt="Pepper Logo" class="h-24 w-auto object-contain" />
+      </a>
       <nav class="hidden md:block">
         <ul class="flex space-x-6 items-center">
           <li><a href="#" class="hover:text-pepper-orange transition">Accueil</a></li>
@@ -89,6 +91,18 @@ export function Header(): HTMLElement {
     });
   }, 100);
   
+  // Effet ombre sticky au scroll
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('shadow-lg');
+        header.classList.remove('shadow-sm');
+      } else {
+        header.classList.remove('shadow-lg');
+        header.classList.add('shadow-sm');
+      }
+    });
+  }
+
   return header;
 }
-

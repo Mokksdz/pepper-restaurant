@@ -2,6 +2,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { menuItems, MenuCategory } from '../data/menuItems';
 import { ProductCard } from '../components/ProductCard';
+import { TestimonialsSection } from '../components/Testimonials';
 
 const categories: { key: MenuCategory; label: string }[] = [
   { key: 'Burgers', label: 'Nos Burgers' },
@@ -15,6 +16,28 @@ export function renderMenu() {
   const app = document.getElementById('app')!;
   app.innerHTML = '';
   app.appendChild(Header());
+
+  // --- Barre sticky d’onglets catégories ---
+  const navBar = document.createElement('nav');
+  navBar.className = 'sticky top-[68px] z-40 bg-white/80 backdrop-blur border-b border-gray-100 flex overflow-x-auto gap-2 md:gap-4 px-2 md:px-8 py-3 mb-6 shadow-sm animate-fade-in';
+  navBar.setAttribute('data-aos', 'fade-down');
+  navBar.setAttribute('data-aos-duration', '600');
+
+  categories.forEach(({ key, label }, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'category-tab whitespace-nowrap px-4 py-2 rounded-full font-bold text-black transition-all duration-200 hover:bg-pepper-orange/10 focus:outline-none focus:ring-2 focus:ring-pepper-orange';
+    btn.textContent = label;
+    btn.setAttribute('data-category', key);
+    btn.addEventListener('click', () => {
+      const section = document.getElementById('section-' + key);
+      if (section) {
+        const y = section.getBoundingClientRect().top + window.scrollY - 90; // Décalage sticky
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+    navBar.appendChild(btn);
+  });
+  app.appendChild(navBar);
 
   const main = document.createElement('main');
   main.className = 'py-10 px-2 md:px-4 max-w-6xl mx-auto';
@@ -47,6 +70,7 @@ export function renderMenu() {
   categories.forEach(({ key, label }, index) => {
     const section = document.createElement('section');
     section.className = 'mb-14';
+    section.id = 'section-' + key;
     section.setAttribute('data-aos', 'fade-up');
     section.setAttribute('data-aos-delay', (index * 100).toString());
     
@@ -59,11 +83,36 @@ export function renderMenu() {
 
     const grid = document.createElement('div');
     grid.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7';
-    menuItems.filter(i => i.category === key && i.id !== 'pepper-smash').forEach(item => {
+    menuItems.filter(i => i.category === key).forEach(item => {
       grid.appendChild(ProductCard(item));
     });
     section.appendChild(grid);
     main.appendChild(section);
+  });
+
+  // Gestion de l’onglet actif selon la section visible
+  window.addEventListener('scroll', () => {
+    let current = '';
+    categories.forEach(({ key }) => {
+      const section = document.getElementById('section-' + key);
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom > 120) {
+          current = key;
+        }
+      }
+    });
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      if (tab instanceof HTMLElement) {
+        if (tab.getAttribute('data-category') === current) {
+          tab.classList.add('bg-pepper-orange/90', 'text-white', 'shadow', 'scale-105');
+          tab.classList.remove('text-black');
+        } else {
+          tab.classList.remove('bg-pepper-orange/90', 'text-white', 'shadow', 'scale-105');
+          tab.classList.add('text-black');
+        }
+      }
+    });
   });
 
   // Section encart formule
@@ -75,5 +124,8 @@ export function renderMenu() {
   main.appendChild(formule);
 
   app.appendChild(main);
+
+  // Section Avis clients (testimonials)
+  app.appendChild(TestimonialsSection());
   app.appendChild(Footer());
 }
